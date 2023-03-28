@@ -9,21 +9,22 @@
     become: yes
     apt:
       name: neovim
+      state: latest
 
   - name: Clone nvim config
     become: yes
     git:
-      repo: nvim_config_repo
-      dest: nvim_config_dest
+      repo: "{{nvim_config_repo}}"
+      dest: "{{nvim_config_dest}}"
       clone: yes
       update: yes
 
   - name: Change ownership
     become: yes
     file:
-      path: nvim_config_dest
-      owner: username
-      group: username
+      path: "{{nvim_config_dest}}"
+      owner: "{{username}}"
+      group: "{{username}}"
       recurse: yes
 
   - name: Install treesitter
