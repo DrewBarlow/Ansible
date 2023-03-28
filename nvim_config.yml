@@ -1,0 +1,34 @@
+- hosts: localhost
+  vars:
+    username: drew
+    nvim_config_repo: "https://github.com/DrewBarlow/nvim"
+    nvim_config_dest: "/home/{{username}}/.config/nvim"
+
+  tasks:
+  - name: Install Neovim
+    become: yes
+    apt:
+      name: neovim
+
+  - name: Clone nvim config
+    become: yes
+    git:
+      repo: nvim_config_repo
+      dest: nvim_config_dest
+      clone: yes
+      update: yes
+
+  - name: Change ownership
+    become: yes
+    file:
+      path: nvim_config_dest
+      owner: username
+      group: username
+      recurse: yes
+
+  - name: Install treesitter
+    become: yes
+    community.general.npm:
+      name: tree-sitter-cli 
+      global: true
+

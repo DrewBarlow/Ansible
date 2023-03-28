@@ -1,0 +1,36 @@
+- hosts: localhost
+  tasks:
+  - name: Python
+    apt:
+      name: python3
+      state: latest
+
+  - name: NPM
+    become: yes
+    apt:
+      name: nodejs
+      state: latest
+
+  - name: Typescript
+    become: yes
+    community.general.npm:
+      name: typescript
+      global: true
+
+  - name: Cargo (Rust)
+    become: yes
+    apt:
+      name: cargo
+      state: latest
+
+  - name: Rustc (Rust)
+    become: yes
+    apt:
+      name: rustc
+      state: latest
+
+  - name: Lua
+    become: yes
+    apt:
+      name: lua5.3
+      state: latest
